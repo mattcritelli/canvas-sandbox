@@ -5,6 +5,7 @@ var circleArray = [];
 
 // c stands for context
 var c = canvas.getContext('2d');
+
 var mouse = {
   x: undefined,
   y: undefined
@@ -19,6 +20,11 @@ var colorArray = [
   '#FFD6A0',
   '#FF302C'
 ]
+
+function colorBg() {
+  c.fillStyle = '#1ed2f4'
+  c.fillRect(0, 0, innerWidth, innerHeight)
+}
 
 window.addEventListener('resize', function(){
   canvas.width = window.innerWidth;
@@ -45,10 +51,8 @@ function Circle(x, y, dx, dy, radius, color, fill) {
   this.draw = function() {
     c.beginPath();
     c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    // c.strokeStyle = this.color;
     c.fillStyle = this.fill;
     c.fill();
-    // c.stroke();
   }
 
   this.update = function() {
@@ -70,15 +74,11 @@ function Circle(x, y, dx, dy, radius, color, fill) {
     } else if(this.radius > this.minRadius){
       this.radius -= 1;
     }
-
     this.draw();
   }
-
 }
 
 // Use for-loop to create circles and push into array
-
-
 function init() {
   circleArray = [];
   for(var i = 0; i < 1500; i++){
@@ -93,14 +93,11 @@ function init() {
   }
 }
 
-
-
-
 // Define animate function
-
 function animate(){
   requestAnimationFrame(animate);
   c.clearRect(0, 0, innerWidth, innerHeight)
+  colorBg();
 
   for(var i = 0; i < circleArray.length; i++){
     circleArray[i].update();
